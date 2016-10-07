@@ -7,7 +7,7 @@ describe Checkout do
 
     it 'has no items when it is created' do
       co = Checkout.new([])
-      co.contents.must_equal []
+      co.basket.must_equal []
     end
 
   end
@@ -19,7 +19,7 @@ describe Checkout do
       item = Item.new(code: '001', name: 'Test', price: 1)
 
       co.scan(item)
-      co.contents.must_equal [item]
+      co.basket.must_equal [item]
     end
 
     describe "when there is already an item in the checkout" do
@@ -32,7 +32,7 @@ describe Checkout do
       it 'appends the new item to the contents' do
         item2 = Item.new(code: '002', name: 'Test2', price: 2)
         co.scan(item2)
-        co.contents.must_equal [item1, item2]
+        co.basket.must_equal [item1, item2]
       end
     end
 

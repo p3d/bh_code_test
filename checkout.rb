@@ -1,15 +1,15 @@
 class Checkout
-  attr_reader :contents
+  attr_reader :basket
 
   def initialize(promotional_rules)
-    @contents = []
+    @basket = []
   end
 
   def scan(item)
-    @contents << item
+    @basket << item
   end
 
   def total
-    @contents.reduce(0) { |sum, item| sum+item.price }
+    @basket.reduce(0) { |sum, item| sum+item.price }
   end
 end
