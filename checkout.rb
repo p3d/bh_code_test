@@ -10,6 +10,6 @@ class Checkout
   end
 
   def total
-    3
+    @contents.reduce(0) { |sum, item| sum+item.price }
   end
 end
