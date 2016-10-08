@@ -1,5 +1,6 @@
 class Checkout
   attr_reader :basket
+  attr_accessor :basket_total
 
   def initialize(promotional_rules)
     @basket = []
@@ -12,8 +13,9 @@ class Checkout
   end
 
   def total
-    apply_promotions
+    apply_promotions(:before)
     calculate_total
+    apply_promotions(:after)
     @basket_total
   end
 
@@ -22,10 +24,8 @@ class Checkout
     @basket_total  = @basket.reduce(0) { |sum, item| sum+item.price }
   end
 
-  def apply_promotions
-    @promotional_rules.each do |promo|
-      promo.apply(self)
-    end
+  def apply_promotions(run_at=:before)
+    @promotional_rules.select {|promo| promo.class::RUN_AT == run_at }.map { |promo| promo.apply(self) }
   end
 
 end

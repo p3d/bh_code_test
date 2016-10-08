@@ -1,11 +1,15 @@
 class Promotion
+  RUN_AT = :before
+
   def apply(checkout)
     checkout
   end
+
 end
 
 
 class CheckoutTotalPromotion < Promotion
+  RUN_AT = :after
 
   def initialize(threshold: 0, percentage: 0)
     @threshold = threshold
@@ -13,9 +17,8 @@ class CheckoutTotalPromotion < Promotion
   end
 
   def apply(checkout)
-
-    if checkout.total > @threshold
-      checkout.total = checkout.total*((100-@percentage).to_f/100)
+    if checkout.basket_total >= @threshold
+      checkout.basket_total = checkout.basket_total*((100-@percentage).to_f/100)
     end
     checkout
   end
