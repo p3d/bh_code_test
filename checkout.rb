@@ -16,7 +16,7 @@ class Checkout
     apply_promotions(:before)
     calculate_total
     apply_promotions(:after)
-    @basket_total
+    @basket_total.round(2)
   end
 
   private
