@@ -1,3 +1,5 @@
+require 'minitest/autorun'
+require 'minitest/documentation'
 require_relative '../checkout.rb'
 require_relative '../item.rb'
-require 'pry'
+require_relative '../promotion'

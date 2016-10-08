@@ -3,6 +3,8 @@ class Checkout
 
   def initialize(promotional_rules)
     @basket = []
+    @basket_total = 0
+    @promotional_rules = promotional_rules
   end
 
   def scan(item)
@@ -10,6 +12,20 @@ class Checkout
   end
 
   def total
-    @basket.reduce(0) { |sum, item| sum+item.price }
+    apply_promotions
+    calculate_total
+    @basket_total
   end
+
+  private
+  def calculate_total
+    @basket_total  = @basket.reduce(0) { |sum, item| sum+item.price }
+  end
+
+  def apply_promotions
+    @promotional_rules.each do |promo|
+      promo.apply(self)
+    end
+  end
+
 end
