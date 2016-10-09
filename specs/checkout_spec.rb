@@ -16,7 +16,7 @@ describe Checkout do
 
     it 'adds an item to the checkout' do
       co = Checkout.new([])
-      item = Item.new(code: '001', name: 'Test', price: 1)
+      item = Product.new(code: '001', name: 'Test', price: 1)
 
       co.scan(item)
       co.basket.must_equal [item]
@@ -24,13 +24,13 @@ describe Checkout do
 
     describe "when there is already an item in the checkout" do
       let(:co) { Checkout.new([]) }
-      let(:item1) { Item.new(code: '001', name: 'Test', price: 1) }
+      let(:item1) { Product.new(code: '001', name: 'Test', price: 1) }
       before do
          co.scan(item1)
       end
 
       it 'appends the new item to the contents' do
-        item2 = Item.new(code: '002', name: 'Test2', price: 2)
+        item2 = Product.new(code: '002', name: 'Test2', price: 2)
         co.scan(item2)
         co.basket.must_equal [item1, item2]
       end
@@ -40,8 +40,8 @@ describe Checkout do
 
   describe "#total" do
     let(:co) { Checkout.new([]) }
-    let(:item1) { Item.new(code: '001', name: 'Test', price: 1) }
-    let(:item2) { Item.new(code: '002', name: 'Test2', price: 2) }
+    let(:item1) { Product.new(code: '001', name: 'Test', price: 1) }
+    let(:item2) { Product.new(code: '002', name: 'Test2', price: 2) }
 
     describe "when there are no items in the basket" do
 
