@@ -3,17 +3,34 @@ require_relative 'setup'
 describe Promotion do
 
   describe "CheckoutTotalPromotion#apply" do
-    let(:promo) { CheckoutTotalPromotion.new(threshold: 1, percentage: 10) }
-    let(:co) { Checkout.new([promo]) }
-    let(:product) { Product.new(code: '001', name: 'Test', price: 1) }
 
-    before do
-      co.scan(product)
+    describe 'when the checkout total is above the threshold value' do
+      let(:promo) { CheckoutTotalPromotion.new(threshold: 1, percentage: 10) }
+      let(:co) { Checkout.new([promo]) }
+      let(:product) { Product.new(code: '001', name: 'Test', price: 1) }
+
+      before do
+        co.scan(product)
+      end
+      it 'reduces the checkout total by the specified percentage' do
+        co.total.must_equal 0.9
+      end
     end
 
-    it 'reduces the checkout total by the specified percentage' do
-      co.total.must_equal 0.9
+    describe 'when the checkout total is below the threshold value' do
+      let(:promo) { CheckoutTotalPromotion.new(threshold: 10, percentage: 10) }
+      let(:co) { Checkout.new([promo]) }
+      let(:product) { Product.new(code: '001', name: 'Test', price: 1) }
+
+      before do
+        co.scan(product)
+      end
+
+      it 'does not change the checkout total' do
+        co.total.must_equal 1.0
+      end
     end
+
 
   end
 
