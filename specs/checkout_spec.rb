@@ -12,27 +12,27 @@ describe Checkout do
 
   end
 
-  describe "#scan(item)" do
+  describe "#scan(product)" do
 
-    it 'adds an item to the checkout' do
+    it 'adds a product to the checkout' do
       co = Checkout.new([])
-      item = Product.new(code: '001', name: 'Test', price: 1)
+      product = Product.new(code: '001', name: 'Test', price: 1)
 
-      co.scan(item)
-      co.basket.must_equal [item]
+      co.scan(product)
+      co.basket.must_equal [product]
     end
 
-    describe "when there is already an item in the checkout" do
+    describe "when there is already a product in the checkout" do
       let(:co) { Checkout.new([]) }
-      let(:item1) { Product.new(code: '001', name: 'Test', price: 1) }
+      let(:product1) { Product.new(code: '001', name: 'Test', price: 1) }
       before do
-         co.scan(item1)
+         co.scan(product1)
       end
 
-      it 'appends the new item to the contents' do
-        item2 = Product.new(code: '002', name: 'Test2', price: 2)
-        co.scan(item2)
-        co.basket.must_equal [item1, item2]
+      it 'appends the new product to the contents' do
+        product2 = Product.new(code: '002', name: 'Test2', price: 2)
+        co.scan(product2)
+        co.basket.must_equal [product1, product2]
       end
     end
 
@@ -40,10 +40,10 @@ describe Checkout do
 
   describe "#total" do
     let(:co) { Checkout.new([]) }
-    let(:item1) { Product.new(code: '001', name: 'Test', price: 1) }
-    let(:item2) { Product.new(code: '002', name: 'Test2', price: 2) }
+    let(:product1) { Product.new(code: '001', name: 'Test', price: 1) }
+    let(:product2) { Product.new(code: '002', name: 'Test2', price: 2) }
 
-    describe "when there are no items in the basket" do
+    describe "when there are no products in the basket" do
 
       it "returns 0" do
         co.total.must_equal 0
@@ -51,14 +51,16 @@ describe Checkout do
 
     end
 
-    describe "when there are items in the basket" do
+    describe "when there are products in the basket" do
 
       it "returns the sum of the prices" do
-        co.scan(item1)
-        co.scan(item2)
-        co.total.must_equal item1.price+item2.price
+        co.scan(product1)
+        co.scan(product2)
+        co.total.must_equal product1.price+product2.price
       end
+
     end
+
   end
 
 end
