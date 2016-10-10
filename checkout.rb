@@ -20,12 +20,13 @@ class Checkout
   end
 
   private
+
   def calculate_total
-    @basket_total  = @basket.reduce(0) { |sum, item| sum+item.price }
+    @basket_total = @basket.reduce(0) { |sum, item| sum + item.price }
   end
 
-  def apply_promotions(run_at=:before)
-    @promotional_rules.select {|promo| promo.class::RUN_AT == run_at }.map { |promo| promo.apply(self) }
+  def apply_promotions(run_at = :before)
+    @promotional_rules.select { |promo| promo.class::RUN_AT == run_at }.map { |promo| promo.apply(self) }
   end
 
 end

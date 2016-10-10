@@ -26,7 +26,7 @@ describe Checkout do
       let(:co) { Checkout.new([]) }
       let(:product1) { Product.new(code: '001', name: 'Test', price: 1) }
       before do
-         co.scan(product1)
+        co.scan(product1)
       end
 
       it 'appends the new product to the contents' do
@@ -56,7 +56,7 @@ describe Checkout do
       it "returns the sum of the prices" do
         co.scan(product1)
         co.scan(product2)
-        co.total.must_equal product1.price+product2.price
+        co.total.must_equal product1.price + product2.price
       end
 
     end

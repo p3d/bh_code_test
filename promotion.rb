@@ -7,7 +7,6 @@ class Promotion
 
 end
 
-
 class CheckoutTotalPromotion < Promotion
   RUN_AT = :after
 
@@ -18,7 +17,7 @@ class CheckoutTotalPromotion < Promotion
 
   def apply(checkout)
     if checkout.basket_total >= @threshold
-      checkout.basket_total = checkout.basket_total*((100-@percentage).to_f/100)
+      checkout.basket_total = checkout.basket_total * ((100 - @percentage).to_f / 100)
     end
     checkout
   end
@@ -34,11 +33,9 @@ class ProductPromotion < Promotion
   end
 
   def apply(checkout)
-    if checkout.basket.select {|item| item.code == @product_code}.size >= @threshold
+    if checkout.basket.select { |item| item.code == @product_code }.size >= @threshold
       checkout.basket.each do |item|
-        if item.code == @product_code
-          item.price = @new_price
-        end
+        item.price = @new_price if item.code == @product_code
       end
     end
     checkout
