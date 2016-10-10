@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require_relative 'setup'
 
 describe Product do
-  describe "initialisation" do
+  describe 'initialisation' do
     let(:product) { Product.new(code: '001', name: 'Test item', price: 1) }
 
     it 'sets the code correctly' do

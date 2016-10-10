@@ -2,7 +2,7 @@ require_relative 'setup'
 
 describe Promotion do
 
-  describe "CheckoutTotalPromotion#apply" do
+  describe 'CheckoutTotalPromotion#apply' do
 
     describe 'when the checkout total is above the threshold value' do
       let(:promo) { CheckoutTotalPromotion.new(threshold: 1, percentage: 10) }
@@ -34,7 +34,7 @@ describe Promotion do
 
   end
 
-  describe "ProductPromotion#apply" do
+  describe 'ProductPromotion#apply' do
     let(:product) { Product.new(code: '001', name: 'Test', price: 1) }
 
     it 'changes the product price in the checkout if there are enough of them' do
