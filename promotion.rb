@@ -33,12 +33,18 @@ class ProductPromotion < Promotion
   end
 
   def apply(checkout)
-    if checkout.basket.select { |item| item.code == @product_code }.size >= @threshold
+    if  product_count(checkout) >= @threshold
       checkout.basket.each do |item|
         item.price = @new_price if item.code == @product_code
       end
     end
     checkout
+  end
+
+  private
+
+  def product_count(checkout)
+    checkout.basket.select { |product| product.code == @product_code }.size
   end
 
 end
